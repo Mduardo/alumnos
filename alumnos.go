@@ -72,34 +72,50 @@ func General(s user, weneed string) [3]string {
 	return sj
 }
 func main() {
-	var alumno person
+	var alumno []person
+	var l person
 	var inpt string
+	for i := 0; i < 2; i++ {
+		fmt.Println("give me the student's name,id, age")
+		fmt.Scanln(&inpt)
+		l.studnt.name = inpt
+		fmt.Scanln(&inpt)
+		l.studnt.id = inpt
+		fmt.Scanln(&inpt)
+		l.studnt.age, _ = strconv.Atoi(inpt)
 
-	fmt.Println("ingrese nombre del alumno id, edad")
-	fmt.Scanln(&inpt)
-	alumno.studnt.name = inpt
-	fmt.Scanln(&inpt)
-	alumno.studnt.id = inpt
-	fmt.Scanln(&inpt)
-	alumno.studnt.age, _ = strconv.Atoi(inpt)
+		fmt.Println("give me subject's name, note")
+		fmt.Scanln(&inpt)
+		l.subj.name = inpt
+		fmt.Scanln(&inpt)
+		l.subj.note, _ = strconv.Atoi(inpt)
 
-	fmt.Println("ingrese nombre del maestro, id, edad")
-	fmt.Scanln(&inpt)
-	alumno.teach.name = inpt
-	fmt.Scanln(&inpt)
-	alumno.teach.id = inpt
-	fmt.Scanln(&inpt)
-	alumno.teach.age, _ = strconv.Atoi(inpt)
+		fmt.Println("give me the teacher's name , id, age")
+		fmt.Scanln(&inpt)
+		l.teach.name = inpt
+		fmt.Scanln(&inpt)
+		l.teach.id = inpt
+		fmt.Scanln(&inpt)
+		l.teach.age, _ = strconv.Atoi(inpt)
 
-	fmt.Println("ingrese nombre del curso, id, nota")
-	fmt.Scanln(&inpt)
-	alumno.subj.name = inpt
-	fmt.Scanln(&inpt)
-	alumno.subj.id = inpt
-	fmt.Scanln(&inpt)
-	alumno.subj.note, _ = strconv.Atoi(inpt)
+		alumno = append(alumno, l)
 
-	sj := General(alumno, "id")
+	}
+	aver := average(alumno)
+	fmt.Println("the avarege of notes is", aver)
+	for i := 0; i < len(alumno); i++ {
+		r := General(alumno[i], "id")
+		fmt.Println("the ids are...", r)
+	}
 
-	fmt.Println("los identificadores son", sj)
+}
+
+func average(source []person) int {
+	aver := 0
+	numitmes := 0
+	for i, content := range source {
+		aver += content.subj.note
+		numitmes = i + 1
+	}
+	return aver / numitmes
 }
